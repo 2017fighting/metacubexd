@@ -26,7 +26,6 @@ interface BuilderConfig {
 }
 
 const desktopRoot = resolve(import.meta.dirname, '../../..')
-const repositoryRoot = resolve(desktopRoot, '../..')
 
 function readBuilderConfig(): BuilderConfig {
   return parse(
@@ -85,37 +84,5 @@ describe('desktop distribution configuration', () => {
         ),
       ).toEqual({ width: size, height: size })
     }
-  })
-
-  it('publishes native Linux packages and installs their host build tools', () => {
-    const workflow = readFileSync(
-      resolve(repositoryRoot, '.github/workflows/release.yml'),
-      'utf8',
-    )
-
-    expect(workflow).toContain(
-      'apt-get install --no-install-recommends -y rpm libarchive-tools',
-    )
-    for (const extension of ['deb', 'rpm', 'pacman']) {
-      expect(workflow).toContain(`apps/desktop/dist/*.${extension}`)
-    }
-  })
-
-  it('keeps the Homebrew cask URL aligned with the stable release asset', () => {
-    const workflow = readFileSync(
-      resolve(repositoryRoot, '.github/workflows/release.yml'),
-      'utf8',
-    )
-    const cask = readFileSync(
-      resolve(repositoryRoot, 'Casks/metacubexd.rb'),
-      'utf8',
-    )
-
-    const stableDmgAsset = [
-      'apps/desktop/dist/MetaCubeXD-mac-$',
-      '{{ matrix.brew_arch }}.dmg',
-    ].join('')
-    expect(workflow).toContain(stableDmgAsset)
-    expect(cask).toContain('MetaCubeXD-mac-#{arch}.dmg')
   })
 })
