@@ -209,11 +209,7 @@ export type ConnectionsTableColumnVisibility = Partial<
 export type ConnectionsTableColumnOrder = CONNECTIONS_TABLE_ACCESSOR_KEY[]
 
 export type DataUsageType =
-  | 'sourceIP'
-  | 'host'
-  | 'process'
-  | 'outbound'
-  | 'inboundUser'
+  'sourceIP' | 'host' | 'process' | 'outbound' | 'inboundUser'
 
 export interface DataUsageEntry {
   type: DataUsageType
@@ -258,4 +254,40 @@ export interface ReleaseInfo {
   changelog: string
   publishedAt: string
   isCurrent: boolean
+}
+
+export type PreferredIPIPv6Mode = 'replace' | 'block'
+
+export interface PreferredIPEntryStatus {
+  name: string
+  ipv6: PreferredIPIPv6Mode
+  'answer-count': number
+  'ttl-cap': number
+  persist: boolean
+  ranges: string[]
+  testing: boolean
+  'v4-pool'?: string[]
+  'v4-tested-at'?: string
+  'v6-pool'?: string[]
+  'v6-tested-at'?: string
+}
+
+export type PreferredIPVerdict =
+  | 'rewritten'
+  | 'blocked'
+  | 'passthrough-no-match'
+  | 'passthrough-pool-empty'
+  | 'resolve-error'
+
+export interface PreferredIPFamilyVerdict {
+  verdict: PreferredIPVerdict
+  entry?: string
+  upstream?: string[]
+  rewritten?: string[]
+}
+
+export interface PreferredIPVerifyResult {
+  name: string
+  v4: PreferredIPFamilyVerdict
+  v6: PreferredIPFamilyVerdict
 }

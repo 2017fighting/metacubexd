@@ -100,6 +100,7 @@ function simulateProviderHealthCheck(
 }
 
 // Mock data resolver
+// pi-lens-ignore: no-unknown-returns
 function getMockData(url: string): unknown {
   // Lazy import to avoid bundling mock data in production
   const config = useRuntimeConfig()
@@ -195,6 +196,13 @@ function getMockData(url: string): unknown {
     )
   }
 
+  // Fork-only preferred-ip surface (docs/adr/0001): mock kernels advertise it
+  // by resolving these paths.
+  if (path === 'preferred-ip') return mockData.mockPreferredIP
+  if (path.startsWith('preferred-ip/verify'))
+    return mockData.mockPreferredIPVerify
+  if (path.startsWith('preferred-ip/speedtest')) return {}
+
   return {}
 }
 
@@ -241,7 +249,8 @@ export function useGithubAPI() {
 
   const browserConfig =
     typeof window !== 'undefined'
-      ? (window as unknown as {
+      ? // pi-lens-ignore: require-safety-comment-for-as-unknown-as
+        (window as unknown as {
           __METACUBEXD_CONFIG__?: { githubToken?: string }
           metacubexd?: { githubToken?: string }
         })

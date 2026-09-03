@@ -8,6 +8,7 @@ import {
   IconChevronsRight,
   IconFileCode,
   IconFileStack,
+  IconGauge,
   IconGlobe,
   IconHome,
   IconMenu2,
@@ -21,6 +22,7 @@ import {
 } from '@tabler/icons-vue'
 import { toast } from 'vue-sonner'
 import { useMenuKeyboard } from '~/composables/useMenuKeyboard'
+import { usePreferredIPCapability } from '~/composables/usePreferredIP'
 import {
   useConfigQuery,
   useUpdateConfigMutation,
@@ -32,6 +34,10 @@ const { t } = useI18n()
 const configStore = useConfigStore()
 const { hasAgent, hasFeature } = useControlInfo()
 const configActions = useConfigActions()
+// Fork-only Clash API surface (docs/adr/0001): hidden unless the kernel
+// serves GET /preferred-ip. Reactive — the nav entry appears once probing
+// succeeds.
+const { supported: preferredIPSupported } = usePreferredIPCapability()
 
 const navItems = computed(() => {
   const items = [
@@ -43,6 +49,13 @@ const navItems = computed(() => {
     { href: '/logs', name: t('logs'), icon: IconFileStack },
     { href: '/config', name: t('config'), icon: IconSettings },
   ]
+  if (preferredIPSupported.value) {
+    items.push({
+      href: '/preferred-ip',
+      name: t('preferredIP'),
+      icon: IconGauge,
+    })
+  }
   if (hasFeature('profiles')) {
     items.push({ href: '/profiles', name: t('profiles'), icon: IconFileCode })
   }

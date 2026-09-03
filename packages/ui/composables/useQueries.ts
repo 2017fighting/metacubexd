@@ -19,6 +19,7 @@ export const queryKeys = {
   ruleProviders: ['rule-providers'] as const,
   config: ['config'] as const,
   version: ['version'] as const,
+  preferredIP: ['preferred-ip'] as const,
 }
 
 // Scope a query to the current endpoint. Switching endpoints uses SPA

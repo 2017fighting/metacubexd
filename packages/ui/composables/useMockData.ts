@@ -834,6 +834,49 @@ export const mockMemory = {
   oslimit: 0,
 }
 
+export const mockPreferredIP = [
+  {
+    name: 'cloudflare',
+    ipv6: 'replace',
+    'answer-count': 3,
+    'ttl-cap': 60,
+    persist: true,
+    ranges: ['103.21.244.0/22', '2606:4700::/32'],
+    testing: false,
+    'v4-pool': ['104.16.132.229', '104.17.23.12', '104.18.4.77'],
+    'v4-tested-at': new Date(Date.now() - 4 * 60 * 1000).toISOString(),
+    'v6-pool': ['2606:4700:4700::1111', '2606:4700:4700::2222'],
+    'v6-tested-at': new Date(Date.now() - 4 * 60 * 1000).toISOString(),
+  },
+  {
+    name: 'cloudfront',
+    ipv6: 'block',
+    'answer-count': 2,
+    'ttl-cap': 60,
+    persist: false,
+    ranges: ['13.224.0.0/14'],
+    testing: false,
+    'v4-pool': ['13.224.170.13', '13.226.6.9'],
+    'v4-tested-at': new Date(Date.now() - 26 * 60 * 1000).toISOString(),
+  },
+]
+
+export const mockPreferredIPVerify = {
+  name: 'example.com',
+  v4: {
+    verdict: 'rewritten',
+    entry: 'cloudflare',
+    upstream: ['104.16.132.229', '104.17.23.12'],
+    rewritten: ['104.16.132.229', '104.17.23.12', '104.18.4.77'],
+  },
+  v6: {
+    verdict: 'rewritten',
+    entry: 'cloudflare',
+    upstream: ['2606:4700:4700::1111'],
+    rewritten: ['2606:4700:4700::1111', '2606:4700:4700::2222'],
+  },
+}
+
 // Composable for accessing mock data
 export function useMockData() {
   return {
@@ -847,5 +890,7 @@ export function useMockData() {
     mockLogs,
     mockTrafficStats,
     mockMemory,
+    mockPreferredIP,
+    mockPreferredIPVerify,
   }
 }

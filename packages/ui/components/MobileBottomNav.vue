@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type {MobileNavReselectDetail} from '~/constants';
+import type { MobileNavReselectDetail } from '~/constants'
 import {
   IconChartAreaLine,
   IconFileStack,
@@ -10,17 +10,15 @@ import {
   IconRuler,
   IconServerCog,
   IconSettings,
+  IconGauge,
   IconX,
 } from '@tabler/icons-vue'
-import {
-  MOBILE_NAV_RESELECT_EVENT,
-  
-  ROUTES
-} from '~/constants'
+import { MOBILE_NAV_RESELECT_EVENT, ROUTES } from '~/constants'
 
 const { t } = useI18n()
 const route = useRoute()
 const { hasAgent } = useControlInfo()
+const { supported: preferredIPSupported } = usePreferredIPCapability()
 
 // Primary 4 nav items (around the FAB)
 const primaryItems = computed(() => [
@@ -40,6 +38,15 @@ const secondaryItems = computed(() => {
     { href: '/logs', name: t('logs'), icon: IconFileStack },
     { href: '/config', name: t('config'), icon: IconSettings },
   ]
+  // Fork-only preferred-ip surface (docs/adr/0001): gated on the kernel
+  // serving the endpoint, mirroring the desktop Sidebar.
+  if (preferredIPSupported.value) {
+    items.push({
+      href: '/preferred-ip',
+      name: t('preferredIP'),
+      icon: IconGauge,
+    })
+  }
   // Desktop/server only: keep the Control Center reachable on narrow viewports
   // (e.g. a phone hitting the server-mode dashboard). Hidden in the plain web
   // dashboard, mirroring the desktop Sidebar gate.

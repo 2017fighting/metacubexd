@@ -59,6 +59,7 @@ export enum ROUTES {
   Overview = '/overview',
   Proxies = '/proxies',
   Rules = '/rules',
+  PreferredIP = '/preferred-ip',
   Conns = '/connections',
   Log = '/logs',
   Config = '/config',

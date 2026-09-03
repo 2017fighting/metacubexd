@@ -98,6 +98,49 @@ A Proxy Node's rolling latency history summarized by minimum, average, jitter,
 and success rate.
 _Avoid_: latency history chart, latency stats
 
+### DNS preferred IP
+
+**Preferred IP**:
+A speed-test-selected IP, drawn from a CDN anycast range, substituted into
+DNS answers by the Kernel's preferred-ip feature.
+_Avoid_: accelerated IP, custom IP, CDN IP
+
+**Preferred Pool**:
+The ordered IP list produced by one speed-test round; replaced wholesale
+when the next round completes.
+_Avoid_: IP list, result set
+
+**Range Set**:
+The CIDR set that triggers rewriting. Matching is pure IP semantics and
+independent of the queried domain.
+_Avoid_: IP ranges (bare), whitelist
+
+**Rewrite**:
+Replacing A/AAAA answers whose records fall inside a Range Set with the top
+Preferred Pool entries. Promises only "rewrite when a pool exists"; an empty
+pool means Passthrough; type65 records are never touched.
+_Avoid_: hijack, mapping
+
+**Passthrough**:
+Returning the upstream answer unchanged — no Range Set match, or the pool
+is not ready. The feature's default posture under any failure.
+_Avoid_: fallback, miss
+
+**Speed Test**:
+One embedded round of direct tcping and download testing over candidate IPs
+that produces a Preferred Pool. Distinct from runtime health checks.
+_Avoid_: health check
+
+**Retest**:
+A user-triggered, immediate extra Speed Test round for one entry or all
+entries; runs asynchronously. Distinct from refreshing the status view.
+_Avoid_: refresh, re-run
+
+**Verify Rewrite**:
+A one-shot read-only check reporting which Rewrite verdict applies for a
+given domain: rewritten, blocked, correct passthrough, or pool not ready.
+_Avoid_: self-test, diagnostics, DNS lookup
+
 ### Profiles and configuration
 
 **Profile**:
