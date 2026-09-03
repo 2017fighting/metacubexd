@@ -42,10 +42,17 @@ jobs:
           VERSION="${GITHUB_REF_NAME#v}"
           cd packages/ui/.output/public
           zip -qr "metacubexd-${VERSION}.zip" .
+          # Fixed-name alias: /releases/latest/download/metacubexd.zip always
+          # resolves to the newest release's asset (versioned names would break
+          # the stable URL on every bump).
+          cp "metacubexd-${VERSION}.zip" metacubexd.zip
           echo "artifact=packages/ui/.output/public/metacubexd-${VERSION}.zip" >> "$GITHUB_ENV"
+          echo "artifact_latest=packages/ui/.output/public/metacubexd.zip" >> "$GITHUB_ENV"
 
       - name: attach to release
         uses: softprops/action-gh-release@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          files: ${{ env.artifact }}
+          files: |
+            ${{ env.artifact }}
+            ${{ env.artifact_latest }}
