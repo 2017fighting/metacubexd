@@ -1,0 +1,51 @@
+name: ui-zip
+
+# Fork release pack: build the static dashboard (relative asset base — the
+# same build upstream publishes to gh-pages, so it works under any
+# external-controller mount such as /ui) and attach metacubexd-<tag>.zip to
+# the tag's GitHub Release. Mihomo kernels consume it via `external-ui-url`
+# (zip/tgz supported; extraction handles both flat and single-root archives).
+#
+# 用法：git tag v1.2.3 && git push origin v1.2.3
+# 产物：https://github.com/2017fighting/metacubexd/releases/download/v1.2.3/metacubexd-1.2.3.zip
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build-zip:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/action-setup@v6.0.10
+
+      - uses: actions/setup-node@v7
+        with:
+          cache: pnpm
+          node-version: latest
+
+      - name: install dependencies
+        run: pnpm install
+
+      - name: build static dashboard
+        # Relative base keeps assets mount-agnostic (./_nuxt/...), identical to
+        # the official gh-pages artifact.
+        run: NUXT_APP_BASE_URL='./' pnpm --filter @metacubexd/ui generate
+
+      - name: package zip
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          cd packages/ui/.output/public
+          zip -qr "metacubexd-${VERSION}.zip" .
+          echo "artifact=packages/ui/.output/public/metacubexd-${VERSION}.zip" >> "$GITHUB_ENV"
+
+      - name: attach to release
+        uses: softprops/action-gh-release@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          files: ${{ env.artifact }}
