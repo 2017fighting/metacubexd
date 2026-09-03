@@ -2,12 +2,16 @@ name: ui-zip
 
 # Fork release pack: build the static dashboard (relative asset base — the
 # same build upstream publishes to gh-pages, so it works under any
-# external-controller mount such as /ui) and attach metacubexd-<tag>.zip to
-# the tag's GitHub Release. Mihomo kernels consume it via `external-ui-url`
+# external-controller mount such as /ui) and attach metacubexd.zip to the
+# tag's GitHub Release. Mihomo kernels consume it via `external-ui-url`
 # (zip/tgz supported; extraction handles both flat and single-root archives).
 #
+# The asset keeps a FIXED name across releases so
+# /releases/latest/download/metacubexd.zip always resolves to the newest one
+# (versioned names would break the stable URL on every bump).
+#
 # 用法：git tag v1.2.3 && git push origin v1.2.3
-# 产物：https://github.com/2017fighting/metacubexd/releases/download/v1.2.3/metacubexd-1.2.3.zip
+# 产物：https://github.com/2017fighting/metacubexd/releases/latest/download/metacubexd.zip
 on:
   push:
     tags:
@@ -39,20 +43,11 @@ jobs:
 
       - name: package zip
         run: |
-          VERSION="${GITHUB_REF_NAME#v}"
           cd packages/ui/.output/public
-          zip -qr "metacubexd-${VERSION}.zip" .
-          # Fixed-name alias: /releases/latest/download/metacubexd.zip always
-          # resolves to the newest release's asset (versioned names would break
-          # the stable URL on every bump).
-          cp "metacubexd-${VERSION}.zip" metacubexd.zip
-          echo "artifact=packages/ui/.output/public/metacubexd-${VERSION}.zip" >> "$GITHUB_ENV"
-          echo "artifact_latest=packages/ui/.output/public/metacubexd.zip" >> "$GITHUB_ENV"
+          zip -qr metacubexd.zip .
 
       - name: attach to release
         uses: softprops/action-gh-release@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          files: |
-            ${{ env.artifact }}
-            ${{ env.artifact_latest }}
+          files: packages/ui/.output/public/metacubexd.zip
