@@ -3,8 +3,6 @@ import type { PreferredIPEntryStatus } from '~/types'
 import {
   IconChevronDown,
   IconChevronRight,
-  IconWorld,
-  IconWorldWWW,
   IconRefresh,
 } from '@tabler/icons-vue'
 import { formatTimeFromNow } from '~/utils'
@@ -128,7 +126,6 @@ const timeAgo = computed(() =>
           "
           @click="isIPv4 = true"
         >
-          <IconWorld :size="14" />
           IPv4
         </button>
         <button
@@ -140,7 +137,6 @@ const timeAgo = computed(() =>
           "
           @click="isIPv4 = false"
         >
-          <IconWorldWWW :size="14" />
           IPv6
         </button>
       </div>

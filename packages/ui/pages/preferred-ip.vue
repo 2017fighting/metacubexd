@@ -276,7 +276,7 @@ function clearVerifyError() {
         </div>
 
         <!-- Verify verdicts -->
-        <PreferredIPVerifyResult
+        <PreferredIPVerdicts
           v-if="verifyMutation.data.value"
           :result="verifyMutation.data.value"
         />
