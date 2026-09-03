@@ -679,7 +679,7 @@
   "preferredIPUnsupportedBody": "IP ترجیحی قابلیت مخصوص mihomo فورک‌شده است. برای مشاهدهٔ وضعیت ورودی‌ها، آزمون مجدد و بررسی بازنویسی، به هسته‌ای متصل شوید که آن را پیاده می‌کند (docs/adr/0001).",
   "preferredIPNoEntries": "هیچ ورودی preferred-ip پیکربندی نشده است. برای شروع بازنویسی پاسخ‌های anycast شبکه CDN، یک ورودی dns.preferred-ip به پیکربندی هسته اضافه کنید.",
   "preferredIPVerify": "بررسی بازنویسی",
-  "preferredIPVerifyPlaceholder": "دامنه‌ای که به مجموعه محدوده‌ها رزولوشن می‌شود، مانند one.one.one.one",
+  "preferredIPVerifyPlaceholder": "دامنه‌ای که به مجموعه محدوده‌ها رزولوشن می‌شود، مانند www.cloudflare.com",
   "preferredIPVerifyRun": "بررسی",
   "preferredIPVerifyHint": "دامنه را رزولوشن می‌کند و پاسخ بازنویسی‌شده را برای هر خانوادهٔ آدرس گزارش می‌دهد — بازنویسی، مسدود یا عبور با دلیل.",
   "preferredIPVerifyFailed": "بررسی ناموفق — املای دامنه و گزارش هسته را بررسی کنید.",

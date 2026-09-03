@@ -679,7 +679,7 @@
   "preferredIPUnsupportedBody": "IP préférées est une capacité propre au mihomo forké. Connectez un noyau qui l’implémente (docs/adr/0001) pour consulter les entrées, déclencher des retests et vérifier les réécritures.",
   "preferredIPNoEntries": "Aucune entrée preferred-ip configurée. Ajoutez une entrée dns.preferred-ip à la config du noyau pour réécrire les réponses anycast CDN.",
   "preferredIPVerify": "Vérifier la réécriture",
-  "preferredIPVerifyPlaceholder": "domaine résolvant dans les plages, ex. one.one.one.one",
+  "preferredIPVerifyPlaceholder": "domaine résolvant dans les plages, ex. www.cloudflare.com",
   "preferredIPVerifyRun": "Vérifier",
   "preferredIPVerifyHint": "Résout le domaine et rapporte la réponse réécrite pour chaque famille — réécrite, bloquée, ou transmise avec la raison.",
   "preferredIPVerifyFailed": "Échec de la vérification — vérifiez l’orthographe du domaine et le journal du noyau.",

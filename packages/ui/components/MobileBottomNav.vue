@@ -42,7 +42,7 @@ const secondaryItems = computed(() => {
   // serving the endpoint, mirroring the desktop Sidebar.
   if (preferredIPSupported.value) {
     items.push({
-      href: '/preferred-ip',
+      href: ROUTES.PreferredIP,
       name: t('preferredIP'),
       icon: IconGauge,
     })

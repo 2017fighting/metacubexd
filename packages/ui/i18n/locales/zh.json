@@ -679,7 +679,7 @@
   "preferredIPUnsupportedBody": "IP 优选是 fork 版 mihomo 的能力。连接实现了该接口的内核（见 docs/adr/0001）即可查看条目状态、触发重测并验证改写。",
   "preferredIPNoEntries": "尚未配置 preferred-ip 条目。在内核配置中新增 dns.preferred-ip 条目即可开始改写 CDN anycast 解析结果。",
   "preferredIPVerify": "验证改写",
-  "preferredIPVerifyPlaceholder": "会解析进段集合的域名，如 one.one.one.one",
+  "preferredIPVerifyPlaceholder": "会解析进段集合的域名，如 www.cloudflare.com",
   "preferredIPVerifyRun": "验证",
   "preferredIPVerifyHint": "解析该域名并按地址族报告改写的实际应答——改写、拦截，或带原因的透传。",
   "preferredIPVerifyFailed": "验证失败——请检查域名拼写与内核日志。",

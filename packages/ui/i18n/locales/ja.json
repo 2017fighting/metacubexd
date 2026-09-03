@@ -679,7 +679,7 @@
   "preferredIPUnsupportedBody": "IP プレファーは fork 版 mihomo の機能です。対応するカーネルに接続すると（docs/adr/0001）、エントリ状態の確認・再テスト・書き換え検証ができます。",
   "preferredIPNoEntries": "preferred-ip エントリが設定されていません。カーネル設定に dns.preferred-ip を追加すると CDN anycast 応答の書き換えが始まります。",
   "preferredIPVerify": "書き換えを検証",
-  "preferredIPVerifyPlaceholder": "レンジセットに解決されるドメイン、例: one.one.one.one",
+  "preferredIPVerifyPlaceholder": "レンジセットに解決されるドメイン、例: www.cloudflare.com",
   "preferredIPVerifyRun": "検証",
   "preferredIPVerifyHint": "ドメインを解決し、アドレスファミリごとに書き換え後の応答を報告します — 書き換え・遮断、または理由つきの透過。",
   "preferredIPVerifyFailed": "検証に失敗しました — ドメイン表記とカーネルログを確認してください。",

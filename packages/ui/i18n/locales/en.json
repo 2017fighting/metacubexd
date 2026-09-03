@@ -679,7 +679,7 @@
   "preferredIPUnsupportedBody": "Preferred IP is a fork-only mihomo capability. Connect to a kernel that implements it (docs/adr/0001) to see entry status, trigger retests and verify rewrites.",
   "preferredIPNoEntries": "No preferred-ip entries configured. Add a dns.preferred-ip entry in the kernel config to start rewriting CDN anycast answers.",
   "preferredIPVerify": "Verify Rewrite",
-  "preferredIPVerifyPlaceholder": "domain that resolves into the range set, e.g. one.one.one.one",
+  "preferredIPVerifyPlaceholder": "domain that resolves into the range set, e.g. www.cloudflare.com",
   "preferredIPVerifyRun": "Verify",
   "preferredIPVerifyHint": "Resolves the domain and reports what the rewrite would answer for each address family — rewritten, blocked, or passthrough with the reason.",
   "preferredIPVerifyFailed": "Verify failed — check the kernel log and the domain spelling.",

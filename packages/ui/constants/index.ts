@@ -59,6 +59,8 @@ export enum ROUTES {
   Overview = '/overview',
   Proxies = '/proxies',
   Rules = '/rules',
+  // Fork-only surface (docs/adr/0001): the page is served only when the
+  // kernel exposes GET /preferred-ip; nav entries are probe-gated.
   PreferredIP = '/preferred-ip',
   Conns = '/connections',
   Log = '/logs',
